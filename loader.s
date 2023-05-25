@@ -19,7 +19,7 @@ loader:
 
 _stop:
     cli
-    htl
+    hlt
     jmp _stop
 
 
