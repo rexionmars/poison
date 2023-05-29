@@ -9,10 +9,14 @@
 
 .section .text
 .extern kernelMain
+.extern callConstructors
 .global loader
 
 loader:
-    mov $kernelMain_stack, %esp
+    mov $kernel_stack, %esp
+
+    call callConstructors
+
     push %eax
     push %ebx
     call kernelMain
@@ -25,4 +29,4 @@ _stop:
 
 .section .bss
 .space 2*1024*1024; # 2 MiB
-kernelMain_stack:
+kernel_stack:
