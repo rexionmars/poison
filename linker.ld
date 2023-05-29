@@ -5,6 +5,7 @@ OUTPUT_ARCH(i386:i386)
 SECTIONS
 {
     . = 0x0100000;
+
     .text :
     {
         *(.multiboot)
@@ -27,9 +28,5 @@ SECTIONS
         *(.bss)
     }
 
-    /DISCARD/ :
-    {
-        *(.fini_array*)
-        *(.comment)
-    }
+    /DISCARD/ : { *(.fini_array*) *(.comment) }
 }
