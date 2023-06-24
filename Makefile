@@ -7,7 +7,7 @@ objects = loader.o kernel.o
 %.o: %.cpp
 	g++ $(GPPPARAMS) -o $@ -c $<
 
-%.o: %.s
+loader.o: loader.s
 	as $(ASPARAMS) -o $@ $<
 
 pskernel.bin: linker.ld $(objects)
@@ -29,5 +29,8 @@ pskernel.iso: pskernel.bin
 	echo '	boot' >> iso/boot/grub/grub.cfg
 	echo '}' >> iso/boot/grub/grub.cfg
 	grub-mkrescue --output=$@ iso
-
 	rm -rfv iso
+
+run: pskernel.iso
+	(killall VirtualBoxVM && sleep 1) || true
+	VirtualBoxVM --startvm "Poison OS" &
