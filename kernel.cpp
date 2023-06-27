@@ -1,4 +1,8 @@
-#include "types.h"
+#include "include/common/types.h"
+#include "include/gdt.h"
+
+using namespace ostypes;
+using namespace common;
 
 void writeln(char* str)
 {
@@ -11,5 +15,7 @@ void writeln(char* str)
 extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*magic_number*/)
 {
     writeln("Poison Operation System --- github.com/rexionmars by Joao Leonardi");
+    GlobalDescriptorTable gdt;
+
     while(1);
 }
